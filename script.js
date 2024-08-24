@@ -4,6 +4,7 @@ const button = document.querySelector("form button");
 const fromCurrency = document.querySelector(".from select");
 const toCurrency = document.querySelector(".to select");
 const msg = document.querySelector(".msg");
+
 const countryList = {
     AED: "AE",
     AFN: "AF",
@@ -166,23 +167,28 @@ const countryList = {
     ZWD: "ZW",
 };
 
+// Populate dropdowns and set event listeners
 for (let select of dropdowns) {
     for (let currencyCode in countryList) {
-        let newOptions = document.createElement("option");
-        newOptions.innerText = currencyCode;
-        newOptions.value = currencyCode;
+        let newOption = document.createElement("option");
+        newOption.innerText = currencyCode;
+        newOption.value = currencyCode;
+
         if (select.name === "from" && currencyCode === "USD") {
-            newOptions.selected = "selected";
+            newOption.selected = "selected";
         } else if (select.name === "to" && currencyCode === "PKR") {
-            newOptions.selected = "selected";
+            newOption.selected = "selected";
         }
-        select.append(newOptions);
+
+        select.append(newOption);
     }
+
     select.addEventListener("change", (event) => {
         updateFlag(event.target);
-    })
+    });
 }
 
+// Update the flag based on selected currency
 const updateFlag = (element) => {
     let currCode = element.value;
     let countryCode = countryList[currCode];
@@ -191,26 +197,33 @@ const updateFlag = (element) => {
     img.src = newSrc;
 }
 
+// Fetch and display exchange rate
 const updateExchangeRate = async () => {
     let amount = document.querySelector(".amount input");
-    let amountValue = amount.value;
-    if (amount.value === "" || amountValue < 1) {
-        amountValue = 1;
-        amount.value = "1";
-    }
+    let amountValue = parseFloat(amount.value) || 1;
+    amount.value = amountValue;
+
     const URL = `${baseURL}${fromCurrency.value}`;
-    let response = await fetch(URL);
-    let data = await response.json();
-    let consversionRate = data.conversion_rates[toCurrency.value];
-    let finalAmount = (consversionRate * amountValue).toFixed(2);
-    msg.innerHTML = `${amountValue}${fromCurrency.value} = ${finalAmount}${toCurrency.value}`;
+    try {
+        let response = await fetch(URL);
+        if (!response.ok) throw new Error("Failed to fetch data");
+        let data = await response.json();
+        let conversionRate = data.conversion_rates[toCurrency.value];
+        let finalAmount = (conversionRate * amountValue).toFixed(2);
+        msg.innerHTML = `${amountValue} ${fromCurrency.value} = ${finalAmount} ${toCurrency.value}`;
+    } catch (error) {
+        msg.innerHTML = "Error fetching data. Please try again later.";
+        console.error("Error:", error);
+    }
 }
 
+// Set up event listeners
 button.addEventListener("click", (event) => {
     event.preventDefault();
     updateExchangeRate();
 });
 
+// Update exchange rate on page load
 window.addEventListener("load", () => {
     updateExchangeRate();
 });

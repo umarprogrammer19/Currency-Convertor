@@ -1,104 +1,160 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
+/* style.css */
 
+/* General Styles */
 body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #c9c8c8;
+    height: 100vh;
 }
 
 .container {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    min-height: 65vh;
-    width: 28vw;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #1e1e2e;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    width: 100%;
+    max-width: 370px;
+    box-sizing: border-box;
 }
 
 .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 1rem;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2em;
+    color: #ff9800;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
-.amount {
-    margin-bottom: 2rem;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.label {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 0.5rem;
+/* Input Styles */
+.amount .label, .from .label, .to .label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #ff9800;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 .input {
     width: 100%;
+    padding: 12px;
+    border-radius: 6px;
     border: none;
-    outline: none;
-    border-radius: 0.75rem;
-    padding: 1rem;
-    font-size: 1.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #262633;
+    color: #ffffff;
+    font-size: 1.1em;
+    transition: border 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
 }
 
+.input:focus {
+    outline: none;
+    background-color: #33334c;
+}
+
+/* Dropdown Styles */
 .dropdown {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2rem;
-}
-
-.dropdown i {
-    font-size: 1.5rem;
-    margin-top: 1rem;
+    gap: 15px;
 }
 
 .select-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 7rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    border: 1px solid #333;
+    gap: 12px;
+    width: 100%;
+    position: relative;
 }
 
 .select-container img {
-    max-width: 2.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
 }
 
-.select-container select {
-    font-size: 1rem;
-    width: auto;
-    background-color: #fff;
-    cursor: pointer;
+.select {
+    flex-grow: 1;
+    padding: 10px 5px;
+    border-radius: 6px;
     border: none;
+    background-color: #262633;
+    color: #ffffff;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.select:focus {
     outline: none;
+    background-color: #33334c;
 }
 
-.msg {
-    margin: 2rem 0 2rem 0;
-    text-align: center;
-    font-size: 1.5rem;
+/* Arrow Icon */
+.fa-arrow-right-arrow-left {
+    color: #ff9800;
+    font-size: 1.8em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.fa-arrow-right-arrow-left:hover {
+    transform: rotate(180deg);
+}
+
+/* Button Styles */
 .btn {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.5rem;
-    background-color: #333;
-    color: #fff;
+    padding: 14px;
+    background-color: #ff9800;
+    color: #121212;
+    font-size: 1.2em;
     border: none;
-    outline: none;
-    border-radius: 0.75rem;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    background-color: #ffa726;
+    transform: translateY(-2px);
+}
+
+/* Message Display */
+.msg {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 12px;
+    color: #ff9800;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 1.8em;
+    }
+
+    .fa-arrow-right-arrow-left {
+        font-size: 1.5em;
+    }
+
+    .btn {
+        font-size: 1.1em;
+    }
 }
